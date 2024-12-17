@@ -20,6 +20,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "devarifuzzaman"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/devarifuzzaman/Assignment-3.git",
+    "accountId": "e815bb90-ec2c-4365-a764-0c68d28feb91"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -70,7 +82,7 @@
       <workItem from="1734419315611" duration="2150000" />
       <workItem from="1734422706115" duration="152000" />
       <workItem from="1734422872135" duration="244000" />
-      <workItem from="1734423126238" duration="24000" />
+      <workItem from="1734423126238" duration="199000" />
     </task>
     <servers />
   </component>
