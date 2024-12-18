@@ -1,13 +1,12 @@
-
 import UsersModel from "../model/UsersModel.js";
 import {TokenEncode} from "../utility/tokenUtility.js";
-import sendEmail from "../utility/emailUtility.js";
+import EmailSend from "../utility/emailUtility.js";
 
 
 export const Registration = async(req,res)=>{
 	try {
 		let reqBody = req.body;
-		UsersModel.create(reqBody)
+		await UsersModel.create(reqBody)
 		return res.json({status:"success",message:"User Registration Successfully"})
 	}catch(err){
 		return res.json({status:"error",message:err.toString()})
@@ -25,6 +24,10 @@ export const Login = async(req,res)=>{
 		}else {
 			//Login Success Token Encode
 			let token = TokenEncode(data['email'],data['_id'])
+			let cookieOption = { expires:new Date(Date.now()+24*6060*1000),httpOnly:false}
+
+			res.cookie('token',token,cookieOption) // Set cookie for token
+
 			return res.json({status:"success",Token:token, message:"User Login Successfully"})
 		}
 
@@ -33,13 +36,28 @@ export const Login = async(req,res)=>{
 	}
 }
 
+export const LogOut = async (req, res) => {
+	let cookieOption = { expires: new Date(Date.now()-24*6060*1000), httpOnly: false}
+	res.cookie('token',"", cookieOption)
+	return res.json({status:"success",message:"User Logged Out Successfully"})
+}
+
 export const ProfileDetails = async(req,res)=>{
 	try{
-		let user_id = req.headers['user_id'];
+		let user_id =req.headers['user_id'];
 		let data = await UsersModel.findOne({"_id":user_id});
-		return res.json({status:"success",message:"User Profile Details Showing Successfully",data:data})
+		return res.json({status:"success",message:"User Profile Details Showing Successfully", data:data})
 	}catch(err){
 		return res.json({status:"error",message:err.toString()})
+	}
+}
+
+export const AllProfileDetails = async(req,res)=>{
+	try{
+		let data = await UsersModel.find({},{password:0,otp:0});
+		return res.json({status:"success",message:"All User Profile Details Showing Successfully", data:data});
+	}catch(err){
+		return res.json({status:"error",message:err.toString()}) 
 	}
 }
 
@@ -47,12 +65,36 @@ export const UpdateProfile = async(req,res)=>{
 	try {
 		let reqBody = req.body;
 		let user_id = req.headers['user_id'];
-		await UsersModel.updateOne({"_id":user_id},reqBody)
-		return res.json({status:"success",message:"Profile Updated Successfully"})
+		let data = await UsersModel.updateOne({"_id":user_id},reqBody);
+
+		//update the user and clear the Token and make the user Logout
+		let cookieOption = { expires: new Date(Date.now()-24*6060*1000), httpOnly: false}
+		res.cookie('token',"", cookieOption)
+
+		return res.json({status:"success",message:"Profile Updated Successfully",data:data});
 	}catch(err){
 		return res.json({status:"error",message:err.toString()})
-	}
+	} 
 }
+
+
+export const DeleteUser = async(req,res)=>{
+	try {
+		let user_id = req.headers['user_id'];
+		await UsersModel.deleteOne({"_id":user_id})
+
+		//Delete the user and clear the Token and make the user Logout
+		let cookieOption = { expires: new Date(Date.now()-24*6060*1000), httpOnly: false}
+		res.cookie('token',"", cookieOption)
+
+		return res.json({status:"success",message:"Profile Deleted Successfully"})
+	}catch(err){
+		return res.json({status:"error",message:err.toString()})
+	} 
+}
+
+
+
 
 export const EmailVerification = async(req,res)=>{
 	try{
@@ -65,9 +107,8 @@ export const EmailVerification = async(req,res)=>{
 			let EmailTo = data['email'];
 			let EmailText = "Your Code is " + code;
 			let EmailSubject = "Task Manager Verification Code";
-			await sendEmail(EmailTo,EmailText,EmailSubject);
-
-			await UsersModel.updateOne({email:email},{otp:code})
+			await EmailSend(EmailTo,EmailText,EmailSubject);
+			await UsersModel.updateOne({email:email},{$set:{otp:code}},{upsert:true})
 			return res.json({status:"success",message:"Verification Code Send Successfully, Check your Email"})
 		}
 	}catch(err){

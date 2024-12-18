@@ -1,16 +1,14 @@
 import nodemailer from "nodemailer";
+import {EMAIL_HOST, EMAIL_PASSWORD, EMAIL_PORT, EMAIL_SECURITY, EMAIL_USER} from "../config/config.js";
 
-import {EMAIL_HOST,EMAIL_USER,EMAIL_SECURITY,EMAIL_PORT,EMAIL_PASSWORD} from "../config/config.js";
-
-
-const sendEmail = async(EmailTo,EmailText,EmailSubject)=>{
+const EmailSend=async (EmailTo,EmailText,EmailSubject)=>{
 	let transporter = nodemailer.createTransport({
 		host: EMAIL_HOST,
-		port: EMAIL_PORT,
+		port:EMAIL_PORT,
 		secure: EMAIL_SECURITY,
-		auth: {
+		auth:{
 			user: EMAIL_USER,
-			pass: EMAIL_PASSWORD,
+			pass: EMAIL_PASSWORD
 		},
 		tls:{
 			rejectUnauthorized: false
@@ -18,14 +16,13 @@ const sendEmail = async(EmailTo,EmailText,EmailSubject)=>{
 	})
 
 	let mailOptions = {
-		from: 'Task Manager <mdarifuzzamanas@gmail.com>',
-		to: EmailTo,
+		from:'ASSIGNMENT-3 <info@teamrabbil.com>',
+		to:EmailTo,
 		subject:EmailSubject,
 		text:EmailText
 	}
 
-	return await transporter.sendMail(mailOptions);
-
+	return await transporter.sendMail(mailOptions)
 }
 
-export default sendEmail;
+export default EmailSend;
