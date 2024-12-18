@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "d4deb485-b0d1-4c8b-96bd-eea932900435",
+		"name": "Assignment-3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38809131"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"mdarifuzzamanshakil12@gmail.com\",\n    \"firstName\":\"MD Arifuzzaman\",\n    \"lastName\":\"Shakil\",\n    \"NIDNumber\":\"857465895618\",\n    \"phoneNumber\":\"01795392740\",\n    \"bloodGroup\":\"B+\",\n    \"password\":\"1233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/Registration",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"Registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"mdarifuzzamanshakil123@gmail.com\",\n    \"password\":\"1233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/Login",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/Logout",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"Logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProfileDetails",
+					"protocolProfileBehavior": {
+						"protocolVersion": "auto"
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/profileDetails",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"profileDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllUserProfile",
+					"protocolProfileBehavior": {
+						"protocolVersion": "auto"
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/allUserProfile",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"allUserProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProfileUpdate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"MD Arifuzzaman\",\n    \"lastName\":\"Shakil\",\n    \"NIDNumber\":\"8574658918\",\n    \"phoneNumber\":\"01795392740\",\n    \"bloodGroup\":\"B+\",\n    \"password\":\"1233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/ProfileUpdate",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"ProfileUpdate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleteuser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/emailVerify/mdarifuzzamanshakil123@gmail.com",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"emailVerify",
+								"mdarifuzzamanshakil123@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EmailVerify",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/emailVerify/mdarifuzzamanshakil123@gmail.com",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"emailVerify",
+								"mdarifuzzamanshakil123@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CodeVerify",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/codeVerify/mdarifuzzamanshakil123@gmail.com/680558",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"codeVerify",
+								"mdarifuzzamanshakil123@gmail.com",
+								"680558"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"mdarifuzzamanshakil123@gmail.com\",\n    \"code\":\"680558\",\n    \"password\":\"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/ResetPassword",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"ResetPassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASEURL",
+			"value": "http://localhost:5050/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
